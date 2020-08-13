@@ -26,6 +26,8 @@ resource "aws_key_pair" "quickstart_key_pair" {
 resource "aws_security_group" "rancher_sg_allowall" {
   name        = "${var.prefix}-rancher-allowall"
   description = "Rancher quickstart - allow all traffic"
+  vpc_id = var.vpc_id
+
 
   ingress {
     from_port   = "0"
@@ -50,9 +52,15 @@ resource "aws_security_group" "rancher_sg_allowall" {
 resource "aws_instance" "rancher_server" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
+  subnet_id     = var.subnet_id_1
+  iam_instance_profile = aws_iam_instance_profile.rancher_profile.name
+  depends_on = [
+    aws_iam_role_policy.rancher_iam_policy,
+    aws_security_group.rancher_sg_allowall,
+  ]
 
   key_name        = aws_key_pair.quickstart_key_pair.key_name
-  security_groups = [aws_security_group.rancher_sg_allowall.name]
+  vpc_security_group_ids = [aws_security_group.rancher_sg_allowall.id]
 
   user_data = templatefile(
     join("/", [path.module, "../cloud-common/files/userdata_rancher_server.template"]),
@@ -64,6 +72,9 @@ resource "aws_instance" "rancher_server" {
 
   root_block_device {
     volume_size = 16
+    encrypted = true
+    kms_key_id = var.ebs_kms_key_id
+
   }
 
   provisioner "remote-exec" {
@@ -111,10 +122,17 @@ module "rancher_common" {
 # AWS EC2 instance for creating a single node workload cluster
 resource "aws_instance" "quickstart_node" {
   ami           = data.aws_ami.ubuntu.id
+  subnet_id     = var.subnet_id_1
   instance_type = var.instance_type
+  iam_instance_profile = aws_iam_instance_profile.rancher_profile.name
+  depends_on = [
+    aws_iam_role_policy.rancher_iam_policy,
+    aws_security_group.rancher_sg_allowall,
+  ]
 
   key_name        = aws_key_pair.quickstart_key_pair.key_name
-  security_groups = [aws_security_group.rancher_sg_allowall.name]
+  vpc_security_group_ids = [aws_security_group.rancher_sg_allowall.id]
+
 
   user_data = templatefile(
     join("/", [path.module, "files/userdata_quickstart_node.template"]),

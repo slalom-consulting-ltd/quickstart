@@ -3,14 +3,31 @@
 # ==========================================================
 
 # AWS Access Key
-aws_access_key = ""
+# aws_access_key = ""
 
 # AWS Secret Key
-aws_secret_key = ""
+# aws_secret_key = ""
+
+# AWS Credentials Path
+# aws_credentials_path="~/.aws/credentials"
+
+# AWS Credentials Profile
+aws_credentials_profile=""
 
 # Password used to log in to the `admin` account on the new Rancher server
 rancher_server_admin_password = ""
 
+# VPC for deployment
+vpc_id = ""
+
+# Subnet for node1
+subnet_id_1 = ""
+
+# Subnet for node2
+subnet_id_2 = ""
+
+# AWS Account regional-local default EBS KeyID
+ebs_kms_key_id = ""
 
 # Optional variables, uncomment to customize the quickstart
 # ----------------------------------------------------------

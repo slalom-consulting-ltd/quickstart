@@ -1,23 +1,51 @@
 # Variables for AWS infrastructure module
-
 // TODO - use null defaults
 
-# Required
-variable "aws_access_key" {
-  type        = string
-  description = "AWS access key used to create infrastructure"
-}
+# notRequired
+# variable "aws_access_key" {
+#   type        = string
+#   description = "AWS access key used to create infrastructure"
+# }
 
-# Required
-variable "aws_secret_key" {
+# # notRequired
+# variable "aws_secret_key" {
+#   type        = string
+#   description = "AWS secret key used to create AWS infrastructure"
+# }
+
+# variable "aws_credentials_path" {
+#   type        = string
+#   description = "AWS cli credentials path"
+# }
+
+variable "aws_credentials_profile" {
   type        = string
-  description = "AWS secret key used to create AWS infrastructure"
+  description = "AWS cli creds profile name"
 }
 
 variable "aws_region" {
   type        = string
   description = "AWS region used for all resources"
-  default     = "us-east-1"
+}
+
+variable "vpc_id" {
+  type        = string
+  description = "VPC ID (assuming non-default)"
+}
+
+variable "subnet_id_1" {
+  type        = string
+  description = "Subnet for node1 (if exists)"
+}
+
+variable "subnet_id_2" {
+  type        = string
+  description = "Subnet for node2 (if exists)"
+}
+
+variable "ebs_kms_key_id" {
+  type        = string
+  description = "AWS Account default EBS encryption key"
 }
 
 variable "prefix" {
