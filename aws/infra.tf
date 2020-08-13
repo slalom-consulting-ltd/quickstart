@@ -86,7 +86,7 @@ resource "aws_instance" "rancher_server" {
 
     connection {
       type        = "ssh"
-      host        = self.public_ip
+      host        = self.private_ip
       user        = local.node_username
       private_key = tls_private_key.global_key.private_key_pem
     }
@@ -111,7 +111,7 @@ module "rancher_common" {
   cert_manager_version = var.cert_manager_version
   rancher_version      = var.rancher_version
 
-  rancher_server_dns = join(".", ["rancher", aws_instance.rancher_server.public_ip, "xip.io"])
+  rancher_server_dns = join(".", ["rancher", aws_instance.rancher_server.private_ip, "xip.io"])
 
   admin_password     = var.rancher_server_admin_password
 
@@ -152,7 +152,7 @@ resource "aws_instance" "quickstart_node" {
 
     connection {
       type        = "ssh"
-      host        = self.public_ip
+      host        = self.private_ip
       user        = local.node_username
       private_key = tls_private_key.global_key.private_key_pem
     }
