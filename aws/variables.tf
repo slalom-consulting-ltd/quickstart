@@ -18,10 +18,10 @@
 #   description = "AWS cli credentials path"
 # }
 
-variable "aws_credentials_profile" {
-  type        = string
-  description = "AWS cli creds profile name"
-}
+# variable "aws_credentials_profile" {
+#   type        = string
+#   description = "AWS cli creds profile name"
+# }
 
 variable "aws_region" {
   type        = string
