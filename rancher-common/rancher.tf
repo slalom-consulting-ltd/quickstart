@@ -18,9 +18,7 @@ resource "rancher2_cluster" "quickstart_workload" {
 
   name        = var.workload_cluster_name
   description = "Custom workload cluster created by Rancher quickstart"
-  depends_on = [
-    rancher2_bootstrap.admin
-  ]
+
 
   rke_config {
     network {
