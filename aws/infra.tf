@@ -151,7 +151,7 @@ module "rancher_common" {
 # AWS EC2 instance for creating a single node workload cluster
 resource "aws_instance" "quickstart_node" {
   ami           = data.aws_ami.ubuntu.id
-  subnet_id     = var.subnet_id_1
+  subnet_id     = var.subnet_id_2
   instance_type = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.rancher_profile.name
   depends_on = [
