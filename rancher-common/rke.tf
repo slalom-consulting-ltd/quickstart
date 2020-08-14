@@ -1,9 +1,8 @@
 # RKE resources
-
 # Provision RKE cluster on provided infrastructure
 resource "rke_cluster" "rancher_cluster" {
   cluster_name = "quickstart-rancher-server"
-
+  kubernetes_version = var.rke_kubernetes_version
 
   nodes {
     address          = var.node_internal_ip
@@ -12,7 +11,8 @@ resource "rke_cluster" "rancher_cluster" {
     role             = ["controlplane", "etcd", "worker"]
     ssh_key          = var.ssh_private_key_pem
   }
-
-  kubernetes_version = var.rke_kubernetes_version
+  cloud_provider{
+    name = aws
+  }
 }
 
