@@ -9,7 +9,6 @@ variable "node_public_ip" {
 variable "node_internal_ip" {
   type        = string
   description = "Internal IP of compute node for Rancher cluster"
-  default     = ""
 }
 
 # Required
