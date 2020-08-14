@@ -33,7 +33,7 @@ resource "aws_security_group" "rancher_sg_tls2server" {
     from_port   = "443"
     to_port     = "443"
     protocol    = "TCP"
-    cidr_blocks = ["88.98.213.234/32"]
+    cidr_blocks = ["88.98.213.234/32", var.vpc_id.cidr_block]
   }
 
   egress {
