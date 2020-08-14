@@ -33,7 +33,7 @@ resource "aws_security_group" "rancher_sg_tls2server" {
     from_port   = "443"
     to_port     = "443"
     protocol    = "TCP"
-    cidr_blocks = ["88.98.213.234/32", "10.226.8.0/21"]
+    cidr_blocks = ["88.98.213.234/32"]
   }
 
   egress {
@@ -63,9 +63,9 @@ resource "aws_security_group" "rancher_sg_allowall" {
   }
 
   ingress {
-    from_port   = "22"
-    to_port     = "22"
-    protocol    = "tcp"
+    from_port   = "0"
+    to_port     = "0"
+    protocol    = "-1"
     cidr_blocks = ["10.226.8.0/21"]
   }
 
