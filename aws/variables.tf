@@ -28,6 +28,11 @@ variable "aws_region" {
   description = "AWS region used for all resources"
 }
 
+# variable "public_tls_ips" {
+#   type        = string
+#   description = "IP addresses to access rancher-server over https"
+# }
+
 variable "vpc_id" {
   type        = string
   description = "VPC ID (assuming non-default)"

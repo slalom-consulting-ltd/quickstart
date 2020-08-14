@@ -22,6 +22,32 @@ resource "aws_key_pair" "quickstart_key_pair" {
   public_key      = tls_private_key.global_key.public_key_openssh
 }
 
+# Security group to allow TLS to rancher-server
+resource "aws_security_group" "rancher_sg_tls2server" {
+  name        = "${var.prefix}-rancher-tls2server"
+  description = "Rancher quickstart - allow tls to server"
+  vpc_id = var.vpc_id
+
+
+  ingress {
+    from_port   = "443"
+    to_port     = "443"
+    protocol    = "TCP"
+    cidr_blocks = ["88.98.213.234/32"]
+  }
+
+  egress {
+    from_port   = "0"
+    to_port     = "0"
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Creator = "rancher-quickstart"
+  }
+}
+
 # Security group to allow all traffic
 resource "aws_security_group" "rancher_sg_allowall" {
   name        = "${var.prefix}-rancher-allowall"
@@ -33,7 +59,7 @@ resource "aws_security_group" "rancher_sg_allowall" {
     from_port   = "0"
     to_port     = "0"
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    self        = true
   }
 
   egress {
@@ -60,7 +86,10 @@ resource "aws_instance" "rancher_server" {
   ]
 
   key_name        = aws_key_pair.quickstart_key_pair.key_name
-  vpc_security_group_ids = [aws_security_group.rancher_sg_allowall.id]
+  vpc_security_group_ids = [
+    aws_security_group.rancher_sg_allowall.id,
+    aws_security_group.rancher_sg_tls2server.id,
+  ]
 
   user_data = templatefile(
     join("/", [path.module, "../cloud-common/files/userdata_rancher_server.template"]),
@@ -111,7 +140,7 @@ module "rancher_common" {
   cert_manager_version = var.cert_manager_version
   rancher_version      = var.rancher_version
 
-  rancher_server_dns = join(".", ["rancher", aws_instance.rancher_server.private_ip, "xip.io"])
+  rancher_server_dns = join(".", ["rancher", aws_instance.rancher_server.public_ip, "xip.io"])
 
   admin_password     = var.rancher_server_admin_password
 
