@@ -69,6 +69,13 @@ resource "aws_security_group" "rancher_sg_allowall" {
     cidr_blocks = ["10.226.8.0/21"]
   }
 
+  ingress {
+    from_port = -1
+    to_port = -1
+    protocol = "icmp"
+    cidr_blocks = ["10.226.8.0/21"]
+  }
+
   egress {
     from_port   = "0"
     to_port     = "0"
