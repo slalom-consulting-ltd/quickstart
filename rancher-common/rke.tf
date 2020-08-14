@@ -6,7 +6,7 @@ resource "rke_cluster" "rancher_cluster" {
 
 
   nodes {
-    address          = var.node_internal_ip
+    address          = var.node_public_ip
     internal_address = var.node_internal_ip
     user             = var.node_username
     role             = ["controlplane", "etcd", "worker"]
