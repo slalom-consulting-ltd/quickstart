@@ -11,7 +11,7 @@ resource "rke_cluster" "rancher_cluster" {
     role             = ["controlplane", "etcd", "worker"]
     ssh_key          = var.ssh_private_key_pem
   }
-  cloud_provider{
+  cloud_provider {
     name = aws
   }
 }
