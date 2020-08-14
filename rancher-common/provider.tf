@@ -4,9 +4,6 @@ provider "local" {
 
 # RKE provider - community plugin as of 2020-05-12
 provider "rke" {
-  connection {
-    host     =  aws_instance.rancher_server.private_ip
-  }
 }
 
 # Kubernetes provider
