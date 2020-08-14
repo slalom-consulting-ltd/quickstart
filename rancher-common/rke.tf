@@ -4,6 +4,7 @@
 resource "rke_cluster" "rancher_cluster" {
   cluster_name = "quickstart-rancher-server"
 
+
   nodes {
     address          = var.node_internal_ip
     internal_address = var.node_internal_ip
