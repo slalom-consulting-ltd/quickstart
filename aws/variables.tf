@@ -29,7 +29,7 @@ variable "aws_region" {
 }
 
 # variable "public_tls_ips" {
-#   type        = string
+#   type        = list
 #   description = "IP addresses to access rancher-server over https"
 # }
 
