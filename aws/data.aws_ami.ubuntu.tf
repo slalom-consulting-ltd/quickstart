@@ -4,7 +4,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = var.values
+    values = var.amivalues
   }
 
   filter {

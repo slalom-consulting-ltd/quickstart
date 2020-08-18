@@ -4,7 +4,7 @@ variable "aws_region" {
   description = "AWS region used for all resources"
 }
 
-variable "values" {
+variable "amivalues" {
   type        = list
   default     = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
   description = "Set values for ami filter"
@@ -15,14 +15,25 @@ variable "vpc_id" {
   description = "VPC ID (assuming non-default)"
 }
 
-variable "subnet_id_1" {
+variable "vpc_cidr_block" {
   type        = string
-  description = "Subnet for node1 (if exists)"
+  description = "VPC CIDR Block (assuming non-default)"
 }
 
-variable "subnet_id_2" {
+variable "external_access_cidr_blocks" {
+  type        = list
+  description = "IP addresses for external HTTPS access (if any)"
+  default     = ["88.98.213.234/32"]
+}
+
+variable "subnet_id_public" {
   type        = string
-  description = "Subnet for node2 (if exists)"
+  description = "Subnet for rancher_server (if exists)"
+}
+
+variable "subnet_id_private" {
+  type        = string
+  description = "Subnet for aws_quickstart_rke_cluster (if exists)"
 }
 
 variable "ebs_kms_key_id" {

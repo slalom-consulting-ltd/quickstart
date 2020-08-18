@@ -25,7 +25,7 @@ resource "aws_key_pair" "quickstart_key_pair" {
 # Security group to allow TLS to rancher-server
 resource "aws_security_group" "rancher_sg_tls2server" {
   name        = "${var.prefix}-rancher-tls2server"
-  description = "Rancher quickstart - allow tls to server"
+  description = "Rancher quickstart - allow external tls to server"
   vpc_id      = var.vpc_id
 
 
@@ -33,7 +33,7 @@ resource "aws_security_group" "rancher_sg_tls2server" {
     from_port   = "443"
     to_port     = "443"
     protocol    = "TCP"
-    cidr_blocks = ["88.98.213.234/32"]
+    cidr_blocks = var.external_access_cidr_blocks
   }
 
   egress {
@@ -51,7 +51,7 @@ resource "aws_security_group" "rancher_sg_tls2server" {
 # Security group to allow all traffic
 resource "aws_security_group" "rancher_sg_allowall" {
   name        = "${var.prefix}-rancher-allowall"
-  description = "Rancher quickstart - allow all traffic"
+  description = "Rancher quickstart - allow all traffic internally"
   vpc_id      = var.vpc_id
 
 
@@ -73,21 +73,21 @@ resource "aws_security_group" "rancher_sg_allowall" {
     from_port   = "22"
     to_port     = "22"
     protocol    = "tcp"
-    cidr_blocks = ["10.226.8.0/21", ]
+    cidr_blocks = var.vpc_cidr_block
   }
 
   ingress {
     from_port   = "443"
     to_port     = "443"
     protocol    = "tcp"
-    cidr_blocks = ["10.226.8.0/21", ]
+    cidr_blocks = var.vpc_cidr_block
   }
 
   ingress {
     from_port   = "6443"
     to_port     = "6443"
     protocol    = "tcp"
-    cidr_blocks = ["10.226.8.0/21", ]
+    cidr_blocks = var.vpc_cidr_block
   }
 
   egress {
@@ -107,7 +107,7 @@ resource "aws_instance" "rancher_server" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   associate_public_ip_address = true
-  subnet_id                   = var.subnet_id_1
+  subnet_id                   = var.subnet_id_public
   iam_instance_profile        = aws_iam_instance_profile.rancher_profile.name
   depends_on = [
     aws_iam_role_policy.rancher_iam_policy,
@@ -180,7 +180,7 @@ module "rancher_common" {
 # AWS EC2 instance for creating a single node workload cluster
 resource "aws_instance" "quickstart_node" {
   ami                  = data.aws_ami.ubuntu.id
-  subnet_id            = var.subnet_id_2
+  subnet_id            = var.subnet_id_private
   instance_type        = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.rancher_profile.name
 

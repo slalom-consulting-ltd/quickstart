@@ -4,19 +4,25 @@
 
 
 # Password used to log in to the `admin` account on the new Rancher server
-rancher_server_admin_password = "9&6SZjqaV&rK"
+rancher_server_admin_password = ""
 
 # VPC for deployment
 vpc_id = ""
 
+# VPC for deployment
+vpc_cidr_block = ""
+
 # Subnet for node1
-subnet_id_1 = ""
+subnet_id_public = ""
 
 # Subnet for node2
-subnet_id_2 = ""
+subnet_id_private = ""
 
 # AWS Account regional-local default EBS KeyID
 ebs_kms_key_id = ""
+
+# IP addresses needing external HTTPS access to Rancher_Server
+external_access_cidr_blocks = ""
 
 # Optional variables, uncomment to customize the quickstart
 # ----------------------------------------------------------
