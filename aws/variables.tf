@@ -1,37 +1,14 @@
-# Variables for AWS infrastructure module
-// TODO - use null defaults
-
-# notRequired
-# variable "aws_access_key" {
-#   type        = string
-#   description = "AWS access key used to create infrastructure"
-# }
-
-# # notRequired
-# variable "aws_secret_key" {
-#   type        = string
-#   description = "AWS secret key used to create AWS infrastructure"
-# }
-
-# variable "aws_credentials_path" {
-#   type        = string
-#   description = "AWS cli credentials path"
-# }
-
-# variable "aws_credentials_profile" {
-#   type        = string
-#   description = "AWS cli creds profile name"
-# }
 
 variable "aws_region" {
   type        = string
   description = "AWS region used for all resources"
 }
 
-# variable "public_tls_ips" {
-#   type        = list
-#   description = "IP addresses to access rancher-server over https"
-# }
+variable "values" {
+  type        = list
+  default     = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
+  description = "Set values for ami filter"
+}
 
 variable "vpc_id" {
   type        = string
@@ -105,4 +82,15 @@ variable "rancher_server_admin_password" {
 # Local variables used to reduce repetition
 locals {
   node_username = "ubuntu"
+}
+
+variable "iam_profile_name" {
+  type    = string
+  default = "rancher_iam_profile"
+}
+
+variable "role_name" {
+  type        = string
+  description = "The role name"
+  default     = "rancher_iam_role"
 }

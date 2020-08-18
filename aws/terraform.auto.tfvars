@@ -2,17 +2,6 @@
 # - Fill in before beginning quickstart
 # ==========================================================
 
-# AWS Access Key
-# aws_access_key = ""
-
-# AWS Secret Key
-# aws_secret_key = ""
-
-# AWS Credentials Path
-# aws_credentials_path="~/.aws/credentials"
-
-# AWS Credentials Profile
-# aws_credentials_profile=""
 
 # Password used to log in to the `admin` account on the new Rancher server
 rancher_server_admin_password = "9&6SZjqaV&rK"
@@ -58,4 +47,3 @@ ebs_kms_key_id = ""
 
 # Version of Rancher to install
 # rancher_version = ""
-
