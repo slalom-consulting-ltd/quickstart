@@ -67,6 +67,7 @@ resource "aws_iam_role_policy" "rancher_iam_policy" {
         "elasticloadbalancing:RegisterTargets",
         "elasticloadbalancing:SetLoadBalancerPoliciesOfListener",
         "iam:CreateServiceLinkedRole",
+        "route53:AssociateVPCWithHostedZone",
         "kms:DescribeKey",
         "ecr:Get*",
         "ecr:BatchCheckLayerAvailability",

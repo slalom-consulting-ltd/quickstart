@@ -155,37 +155,13 @@ resource "aws_instance" "rancher_server" {
   }
 }
 
-# Rancher resources
-module "rancher_common" {
-  source = "../rancher-common"
-
-  node_public_ip         = aws_instance.rancher_server.public_ip
-  node_internal_ip       = aws_instance.rancher_server.private_ip
-  node_username          = local.node_username
-  ssh_private_key_pem    = tls_private_key.global_key.private_key_pem
-  rke_kubernetes_version = var.rke_kubernetes_version
-
-  cert_manager_version = var.cert_manager_version
-  rancher_version      = var.rancher_version
-
-  rancher_server_dns = join(".", ["rancher", aws_instance.rancher_server.public_ip, "xip.io"])
-
-  admin_password     = var.rancher_server_admin_password
-
-  workload_kubernetes_version = var.workload_kubernetes_version
-  workload_cluster_name       = "quickstart-aws-custom"
-}
-
 # AWS EC2 instance for creating a single node workload cluster
 resource "aws_instance" "quickstart_node" {
   ami           = data.aws_ami.ubuntu.id
   subnet_id     = var.subnet_id_2
   instance_type = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.rancher_profile.name
-  depends_on = [
-    aws_iam_role_policy.rancher_iam_policy,
-    aws_security_group.rancher_sg_allowall,
-  ]
+  
 
   key_name        = aws_key_pair.quickstart_key_pair.key_name
   vpc_security_group_ids = [aws_security_group.rancher_sg_allowall.id]
@@ -219,4 +195,25 @@ resource "aws_instance" "quickstart_node" {
     Name    = "${var.prefix}-quickstart-node"
     Creator = "rancher-quickstart"
   }
+}
+
+# Rancher resources
+module "rancher_common" {
+  source = "../rancher-common"
+
+  node_public_ip         = aws_instance.rancher_server.public_ip
+  node_internal_ip       = aws_instance.rancher_server.private_ip
+  node_username          = local.node_username
+  ssh_private_key_pem    = tls_private_key.global_key.private_key_pem
+  rke_kubernetes_version = var.rke_kubernetes_version
+
+  cert_manager_version = var.cert_manager_version
+  rancher_version      = var.rancher_version
+
+  rancher_server_dns = join(".", ["rancher", aws_instance.rancher_server.public_ip, "xip.io"])
+
+  admin_password     = var.rancher_server_admin_password
+
+  workload_kubernetes_version = var.workload_kubernetes_version
+  workload_cluster_name       = "quickstart-aws-custom"
 }
