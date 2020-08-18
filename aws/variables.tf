@@ -23,7 +23,7 @@ variable "vpc_cidr_block" {
 variable "external_access_cidr_blocks" {
   type        = list
   description = "IP addresses for external HTTPS access (if any)"
-  default     = ["88.98.213.234/32"]
+  default     = ["214.95.32.102/32"]
 }
 
 variable "subnet_id_public" {
