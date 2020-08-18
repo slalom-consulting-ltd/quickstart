@@ -73,21 +73,21 @@ resource "aws_security_group" "rancher_sg_allowall" {
     from_port   = "22"
     to_port     = "22"
     protocol    = "tcp"
-    cidr_blocks = ["10.226.8.0/24", "10.226.10.0/24", ]
+    cidr_blocks = ["10.226.8.0/21", ]
   }
 
   ingress {
     from_port   = "443"
     to_port     = "443"
     protocol    = "tcp"
-    cidr_blocks = ["10.226.8.0/24", "10.226.10.0/24", ]
+    cidr_blocks = ["10.226.8.0/21", ]
   }
 
   ingress {
     from_port   = "6443"
     to_port     = "6443"
     protocol    = "tcp"
-    cidr_blocks = ["10.226.8.0/24", "10.226.10.0/24", ]
+    cidr_blocks = ["10.226.8.0/21", ]
   }
 
   egress {
