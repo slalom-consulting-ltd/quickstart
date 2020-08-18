@@ -104,11 +104,11 @@ resource "aws_security_group" "rancher_sg_allowall" {
 
 # AWS EC2 instance for creating a single node RKE cluster and installing the Rancher server
 resource "aws_instance" "rancher_server" {
-  ami                  = data.aws_ami.ubuntu.id
-  instance_type        = var.instance_type
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = var.instance_type
   associate_public_ip_address = true
-  subnet_id            = var.subnet_id_1
-  iam_instance_profile = aws_iam_instance_profile.rancher_profile.name
+  subnet_id                   = var.subnet_id_1
+  iam_instance_profile        = aws_iam_instance_profile.rancher_profile.name
   depends_on = [
     aws_iam_role_policy.rancher_iam_policy,
     aws_security_group.rancher_sg_allowall,
