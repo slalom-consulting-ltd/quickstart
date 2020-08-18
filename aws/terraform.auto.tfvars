@@ -4,7 +4,7 @@
 
 
 # Password used to log in to the `admin` account on the new Rancher server
-rancher_server_admin_password = ""
+rancher_server_admin_password = "9&6SZjqaV&rK"
 
 # VPC for deployment
 vpc_id = ""
