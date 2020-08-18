@@ -28,7 +28,7 @@ external_access_cidr_blocks = ""
 # ----------------------------------------------------------
 
 # AWS region for all resources
-# aws_region = ""
+aws_region = ""
 
 # Prefix for all resources created by quickstart
 # prefix = ""
