@@ -26,7 +26,7 @@ resource "aws_key_pair" "quickstart_key_pair" {
 resource "aws_security_group" "rancher_sg_tls2server" {
   name        = "${var.prefix}-rancher-tls2server"
   description = "Rancher quickstart - allow tls to server"
-  vpc_id = var.vpc_id
+  vpc_id      = var.vpc_id
 
 
   ingress {
@@ -52,42 +52,42 @@ resource "aws_security_group" "rancher_sg_tls2server" {
 resource "aws_security_group" "rancher_sg_allowall" {
   name        = "${var.prefix}-rancher-allowall"
   description = "Rancher quickstart - allow all traffic"
-  vpc_id = var.vpc_id
+  vpc_id      = var.vpc_id
 
 
   ingress {
-    from_port   = "0"
-    to_port     = "0"
-    protocol    = "-1"
-    self        = true
+    from_port = "0"
+    to_port   = "0"
+    protocol  = "-1"
+    self      = true
   }
 
   ingress {
-    from_port   = "-1"
-    to_port     = "-1"
-    protocol    = "icmp"
-    self        = true
+    from_port = "-1"
+    to_port   = "-1"
+    protocol  = "icmp"
+    self      = true
   }
 
   ingress {
     from_port   = "22"
     to_port     = "22"
     protocol    = "tcp"
-    cidr_blocks = ["10.226.8.0/24", "10.226.10.0/24",]
+    cidr_blocks = ["10.226.8.0/24", "10.226.10.0/24", ]
   }
 
   ingress {
     from_port   = "443"
     to_port     = "443"
     protocol    = "tcp"
-    cidr_blocks = ["10.226.8.0/24", "10.226.10.0/24",]
+    cidr_blocks = ["10.226.8.0/24", "10.226.10.0/24", ]
   }
 
   ingress {
     from_port   = "6443"
     to_port     = "6443"
     protocol    = "tcp"
-    cidr_blocks = ["10.226.8.0/24", "10.226.10.0/24",]
+    cidr_blocks = ["10.226.8.0/24", "10.226.10.0/24", ]
   }
 
   egress {
@@ -104,16 +104,16 @@ resource "aws_security_group" "rancher_sg_allowall" {
 
 # AWS EC2 instance for creating a single node RKE cluster and installing the Rancher server
 resource "aws_instance" "rancher_server" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-  subnet_id     = var.subnet_id_1
+  ami                  = data.aws_ami.ubuntu.id
+  instance_type        = var.instance_type
+  subnet_id            = var.subnet_id_1
   iam_instance_profile = aws_iam_instance_profile.rancher_profile.name
   depends_on = [
     aws_iam_role_policy.rancher_iam_policy,
     aws_security_group.rancher_sg_allowall,
   ]
 
-  key_name        = aws_key_pair.quickstart_key_pair.key_name
+  key_name = aws_key_pair.quickstart_key_pair.key_name
   vpc_security_group_ids = [
     aws_security_group.rancher_sg_allowall.id,
     aws_security_group.rancher_sg_tls2server.id,
@@ -129,8 +129,8 @@ resource "aws_instance" "rancher_server" {
 
   root_block_device {
     volume_size = 16
-    encrypted = true
-    kms_key_id = var.ebs_kms_key_id
+    encrypted   = true
+    kms_key_id  = var.ebs_kms_key_id
 
   }
 
@@ -157,13 +157,13 @@ resource "aws_instance" "rancher_server" {
 
 # AWS EC2 instance for creating a single node workload cluster
 resource "aws_instance" "quickstart_node" {
-  ami           = data.aws_ami.ubuntu.id
-  subnet_id     = var.subnet_id_2
-  instance_type = var.instance_type
+  ami                  = data.aws_ami.ubuntu.id
+  subnet_id            = var.subnet_id_2
+  instance_type        = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.rancher_profile.name
-  
 
-  key_name        = aws_key_pair.quickstart_key_pair.key_name
+
+  key_name               = aws_key_pair.quickstart_key_pair.key_name
   vpc_security_group_ids = [aws_security_group.rancher_sg_allowall.id]
 
 
@@ -212,7 +212,7 @@ module "rancher_common" {
 
   rancher_server_dns = join(".", ["rancher", aws_instance.rancher_server.public_ip, "xip.io"])
 
-  admin_password     = var.rancher_server_admin_password
+  admin_password = var.rancher_server_admin_password
 
   workload_kubernetes_version = var.workload_kubernetes_version
   workload_cluster_name       = "quickstart-aws-custom"
