@@ -1,8 +1,27 @@
 # AWS Rancher Quickstart
 
 Two single-node RKE Kubernetes clusters will be created from two EC2 instances running Ubuntu 18.04 and Docker.
-Both instances will have wide-open security groups and will be accessible over SSH using the SSH keys
-`id_rsa` and `id_rsa.pub`.
+
+## Security Groups
+Two security groups are created. One for "any/any" for both instances for open communication between Rancher Server and the RKE Quickstart host.
+
+The second security group (ancher_sg_tls2server) allows you to restrict public TLS/HTTPs access to the Rancher server if it's running in a public subnet with a IPV4 DNS hostname (this is also set as the Rancher Server URL) as it's resolvable inside the VPC.
+
+## IAM Roles
+A single IAM role has been created for both Rancher Server and RKE Quickstart instance [Rancher Docs](https://rancher.com/docs/rke/latest/en/config-options/cloud-providers/aws/)
+
+The IAM role also has AWS managed role ec2roleforSSM for accessing the instances with ssmSessionManager
+
+Both instances are also accessible over SSH using the SSH keys `id_rsa` and `id_rsa.pub` though only from within the VPC.
+
+## EBS Encryption
+The variables.tf file will need the default AWS account EBS encryption ID to default encrypt volumes on both Rancher Server and the Quickstart instance.
+
+## Checkov Scanning
+The .pre-commit-config.yaml runs Checkov for static code analysis scanning of AWS infra used in this repo.
+
+## AWS Diagram
+TODO
 
 ## Details
 
