@@ -160,7 +160,7 @@ resource "aws_instance" "rancher_server" {
 module "rancher_common" {
   source = "../rancher-common"
 
-  node_public_ip         = aws_instance.rancher_server.public_ip
+  node_public_ip         = aws_instance.rancher_server.private_ip
   node_internal_ip       = aws_instance.rancher_server.private_ip
   node_username          = local.node_username
   ssh_private_key_pem    = tls_private_key.global_key.private_key_pem
