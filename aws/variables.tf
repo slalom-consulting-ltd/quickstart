@@ -91,7 +91,7 @@ variable "rancher_server_admin_password" {
         condition = (
           length(var.rancher_server_admin_password) > 7 
         )
-        error_message = "blank password or password too short"
+        error_message = "Blank password or password too short."
       }
 }
 
