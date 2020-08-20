@@ -22,7 +22,7 @@ subnet_id_private = ""
 ebs_kms_key_id = ""
 
 # IP addresses needing external HTTPS access to Rancher_Server
-external_access_cidr_blocks = ""
+external_access_cidr_blocks = [""]
 
 # Optional variables, uncomment to customize the quickstart
 # ----------------------------------------------------------
