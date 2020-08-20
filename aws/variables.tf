@@ -87,6 +87,12 @@ variable "rancher_version" {
 variable "rancher_server_admin_password" {
   type        = string
   description = "Admin password to use for Rancher server bootstrap"
+  validation {
+        condition = (
+          length(var.rancher_server_admin_password) > 7 
+        )
+        error_message = "blank password or password too short"
+      }
 }
 
 
