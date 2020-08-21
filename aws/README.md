@@ -21,7 +21,7 @@ The variables.tf file will need the default AWS account EBS encryption ID to def
 The .pre-commit-config.yaml runs Checkov for static code analysis scanning of AWS infra used in this repo.
 
 ## AWS Diagram
-AWS High-level diagram [here](files/rancher2-quickstart.jpg)
+AWS High-level diagram [here](files/rancher2-quickstart.jpeg)
 
 ## Details
 
