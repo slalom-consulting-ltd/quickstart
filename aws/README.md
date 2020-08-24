@@ -31,6 +31,14 @@ AWS High-level diagram: ![Screenshot](files/rancher2-quickstart.jpeg)
 You *must* deploy this quickstart from within a VPC using a jumpbox/ssmSessionManager linux instance running Terraform and git. Because the Rancher provider and remote-exec require ports 22, 443, 6443; it's fair easier (and more secure) to then deploy from inside an existing VPC, unless you choose to add additional ports to the rancher_sg_tls2server security group. This, however, is not recommended.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12 |
+| aws | 3.1.0 |
+| tls | 2.2.0 |
+
 ## Providers
 
 | Name | Version |
@@ -42,11 +50,13 @@ You *must* deploy this quickstart from within a VPC using a jumpbox/ssmSessionMa
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
+| amivalues | Set values for ami filter | `list` | <pre>[<br>  "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"<br>]</pre> | no |
 | aws\_region | AWS region used for all resources | `string` | n/a | yes |
 | cert\_manager\_version | Version of cert-mananger to install alongside Rancher (format: 0.0.0) | `string` | `"0.12.0"` | no |
 | docker\_version | Docker version to install on nodes | `string` | `"19.03"` | no |
 | ebs\_kms\_key\_id | AWS Account default EBS encryption key | `string` | n/a | yes |
+| external\_access\_cidr\_blocks | IP addresses for external HTTPS access (if any) | `list` | <pre>[<br>  "214.95.32.102/32",<br>  "37.98.124.53/32"<br>]</pre> | no |
 | iam\_profile\_name | n/a | `string` | `"rancher_iam_profile"` | no |
 | instance\_type | Instance type used for all EC2 instances | `string` | `"t3a.medium"` | no |
 | prefix | Prefix added to names of all resources | `string` | `"quickstart"` | no |
@@ -54,9 +64,9 @@ You *must* deploy this quickstart from within a VPC using a jumpbox/ssmSessionMa
 | rancher\_version | Rancher server version (format: v0.0.0) | `string` | `"v2.4.5"` | no |
 | rke\_kubernetes\_version | Kubernetes version to use for Rancher server RKE cluster | `string` | `"v1.18.3-rancher2-2"` | no |
 | role\_name | The role name | `string` | `"rancher_iam_role"` | no |
-| subnet\_id\_1 | Subnet for node1 (if exists) | `string` | n/a | yes |
-| subnet\_id\_2 | Subnet for node2 (if exists) | `string` | n/a | yes |
-| values | Set values for ami filter | `list` | <pre>[<br>  "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"<br>]</pre> | no |
+| subnet\_id\_private | Subnet for aws\_quickstart\_rke\_cluster (if exists) | `string` | n/a | yes |
+| subnet\_id\_public | Subnet for rancher\_server (if exists) | `string` | n/a | yes |
+| vpc\_cidr\_block | VPC CIDR Block (assuming non-default) | `string` | n/a | yes |
 | vpc\_id | VPC ID (assuming non-default) | `string` | n/a | yes |
 | workload\_kubernetes\_version | Kubernetes version to use for managed workload cluster | `string` | `"v1.17.6-rancher2-2"` | no |
 
