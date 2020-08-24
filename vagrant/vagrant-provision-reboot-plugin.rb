@@ -38,7 +38,7 @@
 #
 # This will work for the VirtualBox provider. For other providers, a
 # 'remount_synced_folders' action must be added to the provider implementation.
- 
+
 require 'vagrant'
 
 # Monkey-patch the VirtualBox provider to be able to remap synced folders after
