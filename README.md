@@ -74,7 +74,7 @@ Run `terraform destroy -auto-approve` to remove all resources without prompting 
 
 ## Pre-commit Hooks
 
-Install pipenv[pipenv.pypa.io](https://pipenv.pypa.io/en/latest/install/), pyenv [Github](https://github.com/pyenv/pyenv) and pre-commit[pre-commit](https://pre-commit.com/#install)
+Install pipenv[pipenv.pypa.io](https://pipenv.pypa.io/en/latest/install/), pyenv [Github](https://github.com/pyenv/pyenv) and pre-commit [pre-commit](https://pre-commit.com/#install)
 
 To use the pre-commit hooks, run "pre-commit install" from the root of your repo
 
