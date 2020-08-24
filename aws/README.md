@@ -5,7 +5,7 @@ Two single-node RKE Kubernetes clusters will be created from two EC2 instances r
 ## Security Groups
 Two security groups are created. One for "any/any" for both instances for open communication between Rancher Server and the RKE Quickstart host.
 
-The second security group (rancher_sg_tls2server) allows you to restrict public TLS/HTTPs access to the Rancher server if it's running in a public subnet with a IPV4 DNS hostname (this is also set as the Rancher Server URL) as it's resolvable inside the VPC.
+The second security group (rancher_sg_tls2server) allows you to restrict public TLS/HTTPs access to the Rancher server if it's running in a public subnet with a IPV4 DNS hostname (this is also set as the Rancher Server URL) as it's resolvable inside the VPC. Add public_ip addresses to the "external_access_cidr_blocks" variable accordingly.
 
 ## IAM Roles
 A single IAM role has been created for both Rancher Server and RKE Quickstart instance [Rancher Docs](https://rancher.com/docs/rke/latest/en/config-options/cloud-providers/aws/)
