@@ -108,6 +108,6 @@ variable "iam_profile_name" {
 
 variable "role_name" {
   type        = string
-  description = "The role name"
+  description = "The Rancher EC2 IAM rolename"
   default     = "rancher_iam_role"
 }
