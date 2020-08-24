@@ -26,6 +26,10 @@ AWS High-level diagram: ![Screenshot](files/rancher2-quickstart.jpeg)
 
 ## Details
 
+### Deployment
+
+You *must* deploy this quickstart from within a VPC using a jumpbox/ssmSessionManager linux instance running Terraform and git. Because the Rancher provider and remote-exec require ports 22, 443, 6443; it's fair easier (and more secure) to then deploy from inside an existing VPC, unless you choose to add additional ports to the rancher_sg_tls2server security group. This, however, is not recommended.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Providers
 
