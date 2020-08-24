@@ -84,7 +84,11 @@ If you are running python:latest (assuming Python 3.8.5+), you may need addition
 
 - Download [sashkab/homebrew-python](https://github.com/sashkab/homebrew-python) (assuming 3.7.8 required)
 - in .bashrc or .zshrc add the following 2 lines for alias/path
-`alias python3.7="/usr/local/opt/python@3.7/bin/python3.7"
-export PATH="/usr/local/opt/python@3.7/bin:$PATH"`
+
+```bash
+alias python3.7="/usr/local/opt/python@3.7/bin/python3.7"
+export PATH="/usr/local/opt/python@3.7/bin:$PATH"
+```
+
 - source your term
 - best.os.ever
