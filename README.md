@@ -26,10 +26,14 @@ See cloud provider quickstarts for an HA foundation according to Rancher install
 
 See [/vagrant](./vagrant) for details on usage and settings.
 
-
 ## Cloud quickstart
 
-Quickstarts are provided for [**Amazon Web Services** (`aws`)](./aws), [**Microsoft Azure Cloud** (`azure`)](./azure), [**Microsoft Azure Cloud with Windows nodes** (`azure-windows`)](./azure-windows), [**DigitalOcean** (`do`)](./do), and [**Google Cloud Platform** (`gcp`)](./gcp).
+This Quickstart is has been forked and the [**AWS quickstart** (`aws`)](./aws) has been updated. Quickstarts for other cloud providers are unchanged.
+
+- [**Microsoft Azure Cloud** (`azure`)](./azure)
+- [**Microsoft Azure Cloud with Windows nodes** (`azure-windows`)](./azure-windows)
+- [**DigitalOcean** (`do`)](./do)
+- [**Google Cloud Platform** (`gcp`)](./gcp).
 
 **You will be responsible for any and all infrastructure costs incurred by these resources.**
 
@@ -53,6 +57,7 @@ To begin with any quickstart, perform the following steps:
 
 When provisioning has finished, terraform will output the URL to connect to the Rancher server.
 Two sets of Kubernetes configurations will also be generated:
+
 - `kube_config_server.yaml` contains credentials to access the RKE cluster supporting the Rancher server
 - `kube_config_workload.yaml` contains credentials to access the provisioned workload cluster
 
@@ -66,3 +71,20 @@ When you're finished exploring the Rancher server, use terraform to tear down al
 Make sure you tear down any resources you provisioned manually before running the destroy command.
 
 Run `terraform destroy -auto-approve` to remove all resources without prompting for confirmation.
+
+## Pre-commit Hooks
+
+Install pipenv[pipenv.pypa.io](https://pipenv.pypa.io/en/latest/install/), pyenv [Github](https://github.com/pyenv/pyenv) and pre-commit[pre-commit](https://pre-commit.com/#install)
+
+To use the pre-commit hooks, run "pre-commit install" from the root of your repo
+
+### Additional macOS configuration
+
+If you are running python:latest (assuming Python 3.8.5+), you may need additional Python runtimes for hooks within the pre-commit-config.
+
+- Download [sashkab/homebrew-python](https://github.com/sashkab/homebrew-python) (assuming 3.7.8 required)
+- in .bashrc or .zshrc add the following 2 lines for alias/path
+`alias python3.7="/usr/local/opt/python@3.7/bin/python3.7"
+export PATH="/usr/local/opt/python@3.7/bin:$PATH"`
+- source your term
+- best.os.ever
