@@ -74,7 +74,7 @@ resource "google_compute_instance" "rancher_server" {
       join("/", [path.module, "../cloud-common/files/userdata_rancher_server.template"]),
       {
         docker_version = var.docker_version
-        username       = local.node_username
+        username       = var.node_username
       }
     )
   }
@@ -89,7 +89,7 @@ resource "google_compute_instance" "rancher_server" {
     connection {
       type        = "ssh"
       host        = self.network_interface.0.access_config.0.nat_ip
-      user        = local.node_username
+      user        = var.node_username
       private_key = tls_private_key.global_key.private_key_pem
     }
   }
@@ -101,7 +101,7 @@ module "rancher_common" {
 
   node_public_ip         = google_compute_instance.rancher_server.network_interface.0.access_config.0.nat_ip
   node_internal_ip       = google_compute_instance.rancher_server.network_interface.0.network_ip
-  node_username          = local.node_username
+  node_username          = var.node_username
   ssh_private_key_pem    = tls_private_key.global_key.private_key_pem
   rke_kubernetes_version = var.rke_kubernetes_version
 
@@ -151,7 +151,7 @@ resource "google_compute_instance" "quickstart_node" {
       join("/", [path.module, "files/userdata_quickstart_node.template"]),
       {
         docker_version   = var.docker_version
-        username         = local.node_username
+        username         = var.node_username
         register_command = module.rancher_common.custom_cluster_command
         public_ip        = google_compute_address.quickstart_node_address.address
       }
@@ -168,7 +168,7 @@ resource "google_compute_instance" "quickstart_node" {
     connection {
       type        = "ssh"
       host        = self.network_interface.0.access_config.0.nat_ip
-      user        = local.node_username
+      user        = var.node_username
       private_key = tls_private_key.global_key.private_key_pem
     }
   }

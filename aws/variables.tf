@@ -73,7 +73,7 @@ variable "workload_kubernetes_version" {
 
 variable "cert_manager_version" {
   type        = string
-  description = "Version of cert-mananger to install alongside Rancher (format: 0.0.0)"
+  description = "Version of cert-manager to install alongside Rancher (format: 0.0.0)"
   default     = "0.12.0"
 }
 
@@ -95,10 +95,9 @@ variable "rancher_server_admin_password" {
   }
 }
 
-
-# Local variables used to reduce repetition
-locals {
-  node_username = "ubuntu"
+variable "node_username" {
+  type    = string
+  default = "ubuntu"
 }
 
 variable "iam_profile_name" {
@@ -110,4 +109,17 @@ variable "role_name" {
   type        = string
   description = "The Rancher EC2 IAM rolename"
   default     = "rancher_iam_role"
+}
+
+variable "role_policy_name" {
+  type        = string
+  description = "The name of the rancher role policy"
+  default     = "rancher_iam_policy"
+}
+
+variable "common_tags" {
+  type = map
+  default = {
+    Creator = "rancher-quickstart"
+  }
 }
