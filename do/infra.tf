@@ -35,7 +35,7 @@ resource "digitalocean_droplet" "rancher_server" {
     join("/", [path.module, "../cloud-common/files/userdata_rancher_server.template"]),
     {
       docker_version = var.docker_version
-      username       = local.node_username
+      username       = var.node_username
     }
   )
 
@@ -49,7 +49,7 @@ resource "digitalocean_droplet" "rancher_server" {
     connection {
       type        = "ssh"
       host        = self.ipv4_address
-      user        = local.node_username
+      user        = var.node_username
       private_key = tls_private_key.global_key.private_key_pem
     }
   }
@@ -61,7 +61,7 @@ module "rancher_common" {
 
   node_public_ip         = digitalocean_droplet.rancher_server.ipv4_address
   node_internal_ip       = digitalocean_droplet.rancher_server.ipv4_address_private
-  node_username          = local.node_username
+  node_username          = var.node_username
   ssh_private_key_pem    = tls_private_key.global_key.private_key_pem
   rke_kubernetes_version = var.rke_kubernetes_version
 
@@ -88,7 +88,7 @@ resource "digitalocean_droplet" "quickstart_node" {
     join("/", [path.module, "../cloud-common/files/userdata_quickstart_node.template"]),
     {
       docker_version   = var.docker_version
-      username         = local.node_username
+      username         = var.node_username
       register_command = module.rancher_common.custom_cluster_command
     }
   )
@@ -103,7 +103,7 @@ resource "digitalocean_droplet" "quickstart_node" {
     connection {
       type        = "ssh"
       host        = self.ipv4_address
-      user        = local.node_username
+      user        = var.node_username
       private_key = tls_private_key.global_key.private_key_pem
     }
   }

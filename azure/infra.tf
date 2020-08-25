@@ -83,14 +83,14 @@ resource "azurerm_linux_virtual_machine" "rancher_server" {
   resource_group_name   = azurerm_resource_group.rancher-quickstart.name
   network_interface_ids = [azurerm_network_interface.rancher-server-interface.id]
   size                  = var.instance_type
-  admin_username        = local.node_username
+  admin_username        = var.node_username
 
   custom_data = base64encode(
     templatefile(
       join("/", [path.module, "../cloud-common/files/userdata_rancher_server.template"]),
       {
         docker_version = var.docker_version
-        username       = local.node_username
+        username       = var.node_username
       }
     )
   )
@@ -103,7 +103,7 @@ resource "azurerm_linux_virtual_machine" "rancher_server" {
   }
 
   admin_ssh_key {
-    username   = local.node_username
+    username   = var.node_username
     public_key = tls_private_key.global_key.public_key_openssh
   }
 
@@ -126,7 +126,7 @@ resource "azurerm_linux_virtual_machine" "rancher_server" {
     connection {
       type        = "ssh"
       host        = self.public_ip_address
-      user        = local.node_username
+      user        = var.node_username
       private_key = tls_private_key.global_key.private_key_pem
     }
   }
@@ -138,7 +138,7 @@ module "rancher_common" {
 
   node_public_ip         = azurerm_linux_virtual_machine.rancher_server.public_ip_address
   node_internal_ip       = azurerm_linux_virtual_machine.rancher_server.private_ip_address
-  node_username          = local.node_username
+  node_username          = var.node_username
   ssh_private_key_pem    = tls_private_key.global_key.private_key_pem
   rke_kubernetes_version = var.rke_kubernetes_version
 
@@ -190,14 +190,14 @@ resource "azurerm_linux_virtual_machine" "quickstart-node" {
   resource_group_name   = azurerm_resource_group.rancher-quickstart.name
   network_interface_ids = [azurerm_network_interface.quickstart-node-interface.id]
   size                  = var.instance_type
-  admin_username        = local.node_username
+  admin_username        = var.node_username
 
   custom_data = base64encode(
     templatefile(
       join("/", [path.module, "files/userdata_quickstart_node.template"]),
       {
         docker_version   = var.docker_version
-        username         = local.node_username
+        username         = var.node_username
         register_command = module.rancher_common.custom_cluster_command
       }
     )
@@ -211,7 +211,7 @@ resource "azurerm_linux_virtual_machine" "quickstart-node" {
   }
 
   admin_ssh_key {
-    username   = local.node_username
+    username   = var.node_username
     public_key = tls_private_key.global_key.public_key_openssh
   }
 
@@ -234,7 +234,7 @@ resource "azurerm_linux_virtual_machine" "quickstart-node" {
     connection {
       type        = "ssh"
       host        = self.public_ip_address
-      user        = local.node_username
+      user        = var.node_username
       private_key = tls_private_key.global_key.private_key_pem
     }
   }
